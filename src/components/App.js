@@ -1,14 +1,8 @@
-
-/* import icone_certo from "../assets/img/icone_certo.png"
-import icone_erro from "../assets/img/icone_erro.png"
-import icone_quase from "../assets/img/icone_quase.png"
-import party from "../assets/img/party.png"
-import sad from "../assets/img/sad.png" */
 import styled from 'styled-components'
 import FlashCard from "./FlashCard"
 import Header from "./Header"
 import Footer from "./Footer"
-/* import { useState } from "react" */
+import { useState } from 'react';
 const deck = [
     { question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript" },
     { question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces" },
@@ -19,17 +13,20 @@ const deck = [
     { question: "Usamos props para __ ", answer: "passar diferentes informações para componentes " },
     { question: "Usamos estado (state) para __ ", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" }
 ]
+const colors = ["#FF3030","#FF922E","#2FBE34"]
 export default function App() {
+    const [isAnswered, setisAnswered] = useState (false)
+    const [isRevealed, setisRevealed] = useState (false)
+    const [corResp, setcorResp] = useState ("")
     return (
         <>
             <ContainerTela>
                 <Header/>
                 {deck.map((obj, i) => (
-                    <FlashCard key={i} index={i} question={obj.question} answer={obj.answer}/>
+                    <FlashCard key={i} index={i} question={obj.question} answer={obj.answer} isAnswered={isAnswered} isRevealed={isRevealed} setisRevealed={setisRevealed} /* corResp={corResp} *//>
                 ))}
-
             </ContainerTela>
-            <Footer number={deck.length}/>
+            <Footer number={deck.length} cores={colors} setisAnswered={setisAnswered} isAnswered={isAnswered} isRevealed={isRevealed} setisRevealed={setisRevealed} corResp={corResp} setcorResp={setcorResp}/>
         </>
 
     )

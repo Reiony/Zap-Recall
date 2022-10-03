@@ -1,11 +1,22 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import seta_virar from "../assets/img/seta_virar.png"
 
-export default function Pergunta({question,funcao,isClicked,answer}) {
+export default function Pergunta({ question, setisClicked, isClicked, answer,isAnswered,setVisivel}) {
+    const [render, setrender] = useState(question)
+    function revelaResposta() {
+        if (!isClicked) {
+            setisClicked(true)
+            setrender(answer)
+        }
+        if (isAnswered){
+            setVisivel(false)
+        }
+    }
     return (
         <>
-            <PerguntaAberta onClick={funcao} isClicked={isClicked}>
-                {isClicked?answer:question}
+            <PerguntaAberta onClick={() => revelaResposta()} isClicked={isClicked}>
+                {render}
                 <img src={seta_virar} alt="seta de virar" />
             </PerguntaAberta>
         </>
@@ -37,7 +48,6 @@ const PerguntaAberta = styled.div`
     line-height: 22px;
     color: #333333;
     position: relative;
-    display: "flex";
     flex-direction: column;
     justify-content: space-between;
     img{

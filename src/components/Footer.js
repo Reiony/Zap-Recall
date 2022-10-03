@@ -1,23 +1,21 @@
+import { useState } from 'react'
 import styled from 'styled-components'
-import { useState } from 'react';
-export default function Footer({number}) {
-    const [isAnswered,setisAnswered]=useState(false)
-    const [isEnabled,setisEnabled]=useState(false)
-    function responderQuestao (){
-        if (!isAnswered){
-            setisAnswered(true)
-            setisEnabled(!isEnabled)
-
-        }
+export default function Footer({number, isRevealed, setisRevealed,cores,setcorResp,setisAnswered}) {
+    const [contador,setContador]=useState(0)
+    function responderQuestao (cor){
+        setcorResp(cor)
+        setisRevealed(false)
+        setisAnswered(true)
+        setContador(contador+1)
     }
     return (
         <FooterConcluidos>
             <ContainerBotoes>
-                <button disabled={isEnabled} style={{ backgroundColor: "#FF3030", border: "1px solid #FF3030" }} onClick={responderQuestao}>Não lembrei</button>
-                <button disabled={isEnabled} style={{ backgroundColor: "#FF922E", border: "1px solid #FF922E" }} onClick={responderQuestao}>Quase não lembrei</button>
-                <button disabled={isEnabled} style={{ backgroundColor: "#2FBE34", border: "1px solid #2FBE34" }} onClick={responderQuestao}>Zap!</button>
+                <button disabled={!isRevealed} style={{ backgroundColor: `${cores[0]}`, border: `1px solid ${cores[0]}` }} onClick={()=>responderQuestao(cores[0])}>Não lembrei</button>
+                <button disabled={!isRevealed} style={{ backgroundColor: `${cores[1]}`, border: `${cores[1]}`}} onClick={()=>responderQuestao(cores[1])}>Quase não lembrei</button>
+                <button disabled={!isRevealed} style={{ backgroundColor: `${cores[2]}`, border: `${cores[2]}` }} onClick={()=>responderQuestao(cores[2])}>Zap!</button>
             </ContainerBotoes>
-            0/{number} CONCLUÍDOS
+            {contador}/{number} CONCLUÍDOS
         </FooterConcluidos>
     )
 }
@@ -65,5 +63,6 @@ const ContainerBotoes = styled.div`
   }
   button:disabled{
     cursor:default;
+    filter: opacity(0.6);
   }
 `
